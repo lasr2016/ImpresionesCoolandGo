@@ -41,5 +41,63 @@ namespace PrintCoolAndGo
                 }
             }
         }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            frmPti frmobj = new frmPti
+            {
+                MdiParent = this
+            };
+            frmobj.Show();
+            
+
+        }
+
+        private void etiqueta2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripLabel2_Click(object sender, EventArgs e)
+        {
+            frmProductor frmobj = new frmProductor
+            {
+                MdiParent = this
+            };
+            frmobj.Show();
+        }
+
+        private void toolStripLabel3_Click(object sender, EventArgs e)
+        {
+            frmQuesos frmobj = new frmQuesos
+            {
+                MdiParent = this
+            };
+            frmobj.Show();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void mantenedorEtiquetaPTIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMatenedorPTI frmObj = new frmMatenedorPTI();
+            frmObj.ShowDialog();
+
+        }
+
+        private void mantenedorEtiquetaQuesosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMantenedorQuesos frmObj = new frmMantenedorQuesos();
+            frmObj.ShowDialog();
+        }
+
+        private void mantenedorEtiquetaProductorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmMantenedorProductor frmObj = new frmMantenedorProductor();
+            frmObj.ShowDialog();
+        }
     }
 }

@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PrintCoolAndGo</RootNamespace>
     <AssemblyName>PrintCoolAndGo</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Impresora">
+      <HintPath>.\Impresora.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -47,6 +52,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmMantenedorProductor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMantenedorProductor.Designer.cs">
+      <DependentUpon>frmMantenedorProductor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMantenedorQuesos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMantenedorQuesos.Designer.cs">
+      <DependentUpon>frmMantenedorQuesos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMatenedorPTI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMatenedorPTI.Designer.cs">
+      <DependentUpon>frmMatenedorPTI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmProductor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProductor.Designer.cs">
+      <DependentUpon>frmProductor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPti.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPti.Designer.cs">
+      <DependentUpon>frmPti.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmQuesos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQuesos.Designer.cs">
+      <DependentUpon>frmQuesos.cs</DependentUpon>
+    </Compile>
     <Compile Include="mdiMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +96,24 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmMantenedorProductor.resx">
+      <DependentUpon>frmMantenedorProductor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMantenedorQuesos.resx">
+      <DependentUpon>frmMantenedorQuesos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMatenedorPTI.resx">
+      <DependentUpon>frmMatenedorPTI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProductor.resx">
+      <DependentUpon>frmProductor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPti.resx">
+      <DependentUpon>frmPti.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQuesos.resx">
+      <DependentUpon>frmQuesos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="mdiMenu.resx">
       <DependentUpon>mdiMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -66,6 +125,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -81,6 +141,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{ee49f49d-90c8-475d-9e79-a2050377ec63}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{fea80e8c-cb96-49a9-83bf-4e65ed8c6434}</Project>
       <Name>Negocio</Name>

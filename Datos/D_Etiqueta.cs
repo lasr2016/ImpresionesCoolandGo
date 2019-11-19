@@ -36,18 +36,19 @@ namespace Datos
                             E_Etiqueta_Productor_Packing etiqueta = new E_Etiqueta_Productor_Packing();
 
                             etiqueta.ID = Convert.ToString(reader["id"]);
+                            etiqueta.Nombre_etiqueta = Convert.ToString(reader["nombre_etiqueta"]);
                             etiqueta.CSG = Convert.ToString(reader["csg"]);
-                            etiqueta.Region_1 = Convert.ToString(reader["region_1"]);
-                            etiqueta.Province_1 = Convert.ToString(reader["province_1"]);
-                            etiqueta.Township_1 = Convert.ToString(reader["township_1"]);
+                            etiqueta.Region_CSG = Convert.ToString(reader["Region_CSG"]);
+                            etiqueta.Province_CSG = Convert.ToString(reader["Province_CSG"]);
+                            etiqueta.Province_CSG = Convert.ToString(reader["Province_CSG"]);
                             etiqueta.CSP = Convert.ToString(reader["csp"]);                      
-                            etiqueta.Region_2 = Convert.ToString(reader["region_2"]);                        
-                            etiqueta.Province_2 = Convert.ToString(reader["province_2"]);                          
-                            etiqueta.Township_2 = Convert.ToString(reader["township_2"]);
-                            etiqueta.Descripcion_1 = Convert.ToString(reader["descripcion_1"]);
-                            etiqueta.Descripcion_2 = Convert.ToString(reader["descripcion_2"]);
-                            etiqueta.Descripcion_3 = Convert.ToString(reader["descripcion_3"]);
-                            etiqueta.Exported_by = Convert.ToString(reader["exportedby"]);
+                            etiqueta.Region_CSP = Convert.ToString(reader["Region_CSP"]);                        
+                            etiqueta.Province_CSP = Convert.ToString(reader["Province_CSP"]);                          
+                            etiqueta.Township_CSP = Convert.ToString(reader["Township_CSP"]);
+                            etiqueta.Producto = Convert.ToString(reader["Producto"]);
+                            etiqueta.Embalaje = Convert.ToString(reader["Embalaje"]);
+                            etiqueta.OnlyExport = Convert.ToString(reader["OnlyExport"]);
+                            etiqueta.Exported_by = Convert.ToString(reader["exportedby"]);         
 
                             temp.Add(etiqueta);
                         }
@@ -93,18 +94,20 @@ namespace Datos
                     {
                         while(reader.Read())
                         {
-                            etiqueta.ID = Convert.ToString(reader["id"]);
+                            
+                            etiqueta.ID = Convert.ToString(reader["id"]);                            
+                            etiqueta.Nombre_etiqueta = Convert.ToString(reader["nombre_etiqueta"]);
                             etiqueta.CSG = Convert.ToString(reader["csg"]);
-                            etiqueta.Region_1 = Convert.ToString(reader["region_1"]);
-                            etiqueta.Province_1 = Convert.ToString(reader["province_1"]);
-                            etiqueta.Township_1 = Convert.ToString(reader["township_1"]);
+                            etiqueta.Region_CSG = Convert.ToString(reader["Region_CSG"]);
+                            etiqueta.Province_CSG = Convert.ToString(reader["Province_CSG"]);
+                            etiqueta.Province_CSG = Convert.ToString(reader["Province_CSG"]);
                             etiqueta.CSP = Convert.ToString(reader["csp"]);
-                            etiqueta.Region_2 = Convert.ToString(reader["region_2"]);
-                            etiqueta.Province_2 = Convert.ToString(reader["province_2"]);
-                            etiqueta.Township_2 = Convert.ToString(reader["township_2"]);
-                            etiqueta.Descripcion_1 = Convert.ToString(reader["descripcion_1"]);
-                            etiqueta.Descripcion_2 = Convert.ToString(reader["descripcion_2"]);
-                            etiqueta.Descripcion_3 = Convert.ToString(reader["descripcion_3"]);
+                            etiqueta.Region_CSP = Convert.ToString(reader["Region_CSP"]);
+                            etiqueta.Province_CSP = Convert.ToString(reader["Province_CSP"]);
+                            etiqueta.Township_CSP = Convert.ToString(reader["Township_CSP"]);
+                            etiqueta.Producto = Convert.ToString(reader["Producto"]);
+                            etiqueta.Embalaje = Convert.ToString(reader["Embalaje"]);
+                            etiqueta.OnlyExport = Convert.ToString(reader["OnlyExport"]);
                             etiqueta.Exported_by = Convert.ToString(reader["exportedby"]);
                         }
                         Desconectar();
@@ -132,25 +135,29 @@ namespace Datos
         }
         public bool CrearEtiqueta(E_Etiqueta_Productor_Packing etiqueta)
         {
-            string query = "insert into tbl_prpk_etiqueta(csg,region_1,province_1,township_1,csp,region_2,province_2,township_2,descripcion_1,descripcion_2,descripcion_3,exportedby) " +
-                            "values (@csg,@region1,@province1,@township1,@csp,@region2,@province2,@township2,@descripcion1,@descripcion2,@descripcion3,@exportedby);";
+           
+            string query = "insert into tbl_prpk_etiqueta(nombre_etiqueta,csg,region_csg,province_csg,township_csg,csp,region_csp," +
+                                                        "province_csp,township_csp,producto,embalaje,OnlyExport,exportedby) " +
+                                                 "values (@nombre_etiqueta,@csg,@region_csg,@province_csg,@township_csg,@csp,@region_csp," +
+                                                        "@province_csp,@township_csp,@producto,@embalaje,@OnlyExport,@exportedby);";
             MySqlCommand cmd;
             try
             {
                 if (Conectar())
                 {
                     cmd = new MySqlCommand(query, MySQLConexion);
+                    cmd.Parameters.AddWithValue("@nombre_etiqueta", etiqueta.Nombre_etiqueta);
                     cmd.Parameters.AddWithValue("@csg", etiqueta.CSG);
-                    cmd.Parameters.AddWithValue("@region1", etiqueta.Region_1);
-                    cmd.Parameters.AddWithValue("@province1", etiqueta.Province_1);
-                    cmd.Parameters.AddWithValue("@township1", etiqueta.Township_1);
+                    cmd.Parameters.AddWithValue("@region_csg", etiqueta.Region_CSG);
+                    cmd.Parameters.AddWithValue("@province_csg", etiqueta.Province_CSG);
+                    cmd.Parameters.AddWithValue("@township_csg", etiqueta.Township_CSG);
                     cmd.Parameters.AddWithValue("@csp", etiqueta.CSP);
-                    cmd.Parameters.AddWithValue("@region2", etiqueta.Region_2);
-                    cmd.Parameters.AddWithValue("@province2", etiqueta.Province_2);
-                    cmd.Parameters.AddWithValue("@township2", etiqueta.Township_2);
-                    cmd.Parameters.AddWithValue("@descripcion1", etiqueta.Descripcion_1);
-                    cmd.Parameters.AddWithValue("@descripcion2", etiqueta.Descripcion_2);
-                    cmd.Parameters.AddWithValue("@descripcion3", etiqueta.Descripcion_3);
+                    cmd.Parameters.AddWithValue("@region_csp", etiqueta.Region_CSP);
+                    cmd.Parameters.AddWithValue("@province_csp", etiqueta.Province_CSP);
+                    cmd.Parameters.AddWithValue("@township_csp", etiqueta.Township_CSP); 
+                    cmd.Parameters.AddWithValue("@producto", etiqueta.Producto);
+                    cmd.Parameters.AddWithValue("@embalaje", etiqueta.Embalaje);
+                    cmd.Parameters.AddWithValue("@OnlyExport", etiqueta.OnlyExport);
                     cmd.Parameters.AddWithValue("@exportedby", etiqueta.Exported_by);
 
                     cmd.ExecuteNonQuery();
@@ -205,7 +212,7 @@ namespace Datos
 
         public bool ModificarEtiqueta(E_Etiqueta_Productor_Packing etiqueta)
         {
-            string query = "update tbl_prpk_etiqueta set csg = @csg, region_1 = @region1, province_1 = @province1, township_1 = @township1, csp = @csp, region_2 = @region2, province = @province2," +
+            string query = "update tbl_prpk_etiqueta set nombre_etiqueta = @nombre_etiqueta, csg = @csg, region_1 = @region1, province_1 = @province1, township_1 = @township1, csp = @csp, region_2 = @region2, province = @province2," +
                             " township_2 = @township2, descripcion_1 = @descripcion1, descripcion_2 = @descripcion2, descripcion_3 = @descripcion3, exportedby = @exportedby where id = @id;";
             MySqlCommand cmd;
             try
@@ -213,17 +220,18 @@ namespace Datos
                 if (Conectar())
                 {
                     cmd = new MySqlCommand(query, MySQLConexion);
+                    cmd.Parameters.AddWithValue("@nombre_etiqueta", etiqueta.Nombre_etiqueta);
                     cmd.Parameters.AddWithValue("@csg", etiqueta.CSG);
-                    cmd.Parameters.AddWithValue("@region1", etiqueta.Region_1);
-                    cmd.Parameters.AddWithValue("@province1", etiqueta.Province_1);
-                    cmd.Parameters.AddWithValue("@township1", etiqueta.Township_1);
+                    cmd.Parameters.AddWithValue("@region_csg", etiqueta.Region_CSG);
+                    cmd.Parameters.AddWithValue("@province_csg", etiqueta.Province_CSG);
+                    cmd.Parameters.AddWithValue("@township_csg", etiqueta.Township_CSG);
                     cmd.Parameters.AddWithValue("@csp", etiqueta.CSP);
-                    cmd.Parameters.AddWithValue("@region2", etiqueta.Region_2);
-                    cmd.Parameters.AddWithValue("@province2", etiqueta.Province_2);
-                    cmd.Parameters.AddWithValue("@township2", etiqueta.Township_2);
-                    cmd.Parameters.AddWithValue("@descripcion1", etiqueta.Descripcion_1);
-                    cmd.Parameters.AddWithValue("@descripcion2", etiqueta.Descripcion_2);
-                    cmd.Parameters.AddWithValue("@descripcion3", etiqueta.Descripcion_3);
+                    cmd.Parameters.AddWithValue("@region_csp", etiqueta.Region_CSP);
+                    cmd.Parameters.AddWithValue("@province_csp", etiqueta.Province_CSP);
+                    cmd.Parameters.AddWithValue("@township_csp", etiqueta.Township_CSP);
+                    cmd.Parameters.AddWithValue("@producto", etiqueta.Producto);
+                    cmd.Parameters.AddWithValue("@embalaje", etiqueta.Embalaje);
+                    cmd.Parameters.AddWithValue("@onlyExport", etiqueta.OnlyExport);
                     cmd.Parameters.AddWithValue("@exportedby", etiqueta.Exported_by);
                     cmd.Parameters.AddWithValue("@id", etiqueta.ID);
 
@@ -276,8 +284,9 @@ namespace Datos
                             E_Etiqueta_Quesos etiqueta = new E_Etiqueta_Quesos();
 
                             etiqueta.ID = Convert.ToString(reader["id"]);
+                            etiqueta.Nombre_etiqueta = Convert.ToString(reader["nombre_etiqueta"]);
                             etiqueta.Descripcion = Convert.ToString(reader["descripcion"]);
-                            etiqueta.Codigo = Convert.ToString(reader["codigo"]);
+                            etiqueta.CodigoBarras = Convert.ToString(reader["codigobarras"]);
                             etiqueta.SAP = Convert.ToString(reader["sap"]);
 
                             temp.Add(etiqueta);
@@ -326,7 +335,7 @@ namespace Datos
                         {
                             etiqueta.ID = Convert.ToString(reader["id"]);
                             etiqueta.Descripcion = Convert.ToString(reader["descripcion"]);
-                            etiqueta.Codigo = Convert.ToString(reader["codigo"]);
+                            etiqueta.CodigoBarras = Convert.ToString(reader["codigoBarras"]);
                             etiqueta.SAP = Convert.ToString(reader["sap"]);
                         }
                         Desconectar();
@@ -354,17 +363,18 @@ namespace Datos
         }
         public bool CrearEtiqueta(E_Etiqueta_Quesos etiqueta)
         {
-            string query = "insert into tbl_qu_etiqueta(descripcion,sap,codigo) " +
-                            "values (@descripcion,@sap,@codigo);";
+            string query = "insert into tbl_qu_etiqueta(nombre_etiqueta,descripcion,sap,codigobarras) " +
+                            "values (@nombre_etiqueta,@descripcion,@sap,@codigobarras);";
             MySqlCommand cmd;
             try
             {
                 if (Conectar())
                 {
                     cmd = new MySqlCommand(query, MySQLConexion);
+                    cmd.Parameters.AddWithValue("nombre_etiqueta", etiqueta.Nombre_etiqueta);
                     cmd.Parameters.AddWithValue("descripcion", etiqueta.Descripcion);
                     cmd.Parameters.AddWithValue("@sap", etiqueta.SAP);
-                    cmd.Parameters.AddWithValue("@codigo", etiqueta.Codigo);
+                    cmd.Parameters.AddWithValue("@codigobarras", etiqueta.CodigoBarras);
 
                     cmd.ExecuteNonQuery();
                     etiqueta.ID = cmd.LastInsertedId.ToString();
@@ -424,10 +434,12 @@ namespace Datos
             {
                 if (Conectar())
                 {
+
                     cmd = new MySqlCommand(query, MySQLConexion);
+                    cmd.Parameters.AddWithValue("@nombre_etiqueta", etiqueta.Nombre_etiqueta);
                     cmd.Parameters.AddWithValue("@descripcion", etiqueta.Descripcion);
                     cmd.Parameters.AddWithValue("@sap", etiqueta.SAP);
-                    cmd.Parameters.AddWithValue("@codigo", etiqueta.Codigo);
+                    cmd.Parameters.AddWithValue("@codigoBarras", etiqueta.CodigoBarras);
                     cmd.Parameters.AddWithValue("@id", etiqueta.ID);
 
                     cmd.ExecuteNonQuery();
@@ -482,7 +494,8 @@ namespace Datos
                             etiqueta.Nombre_etiqueta = Convert.ToString(reader["nombre_etiqueta"]);
                             etiqueta.Importador = Convert.ToString(reader["importador"]);
                             etiqueta.Producto = Convert.ToString(reader["producto"]);
-                            etiqueta.Empaque = Convert.ToString(reader["empaque"]);
+                            etiqueta.Embalaje = Convert.ToString(reader["embalaje"]);
+                            etiqueta.Categoria = Convert.ToString(reader["categoria"]);
                             etiqueta.Gtin = Convert.ToString(reader["gtin"]);
 
                             temp.Add(etiqueta);
@@ -533,8 +546,9 @@ namespace Datos
                             etiqueta.Nombre_etiqueta = Convert.ToString(reader["nombre_etiqueta"]);
                             etiqueta.Importador = Convert.ToString(reader["importador"]);
                             etiqueta.Producto = Convert.ToString(reader["producto"]);
-                            etiqueta.Empaque = Convert.ToString(reader["empaque"]);
+                            etiqueta.Embalaje = Convert.ToString(reader["embalaje"]);
                             etiqueta.Gtin = Convert.ToString(reader["gtin"]);
+                            etiqueta.Categoria = Convert.ToString(reader["categoria"]);
                         }
                         Desconectar();
                         return etiqueta;
@@ -561,19 +575,20 @@ namespace Datos
         }
         public bool CrearEtiqueta(E_Etiqueta_PTI etiqueta)
         {
-            string query = "insert into tbl_pti_etiqueta(nombre_etiqueta,importador,producto,empaque,gtin) " +
-                            "values (@nombre_etiqueta,@importador,@producto,@empaque,@gtin);";
+            string query = "insert into tbl_pti_etiqueta(nombre_etiqueta,importador,producto,embalaje,gtin,categoria) " +
+                            "values (@nombre_etiqueta,@importador,@producto,@embalaje,@gtin,@categoria);";
             MySqlCommand cmd;
             try
             {
                 if (Conectar())
                 {
                     cmd = new MySqlCommand(query, MySQLConexion);
-                    cmd.Parameters.AddWithValue("(@nombre_etiqueta", etiqueta.Nombre_etiqueta);
+                    cmd.Parameters.AddWithValue("@nombre_etiqueta", etiqueta.Nombre_etiqueta);
                     cmd.Parameters.AddWithValue("@importador", etiqueta.Importador);
                     cmd.Parameters.AddWithValue("@producto", etiqueta.Producto);
-                    cmd.Parameters.AddWithValue("@empaque", etiqueta.Empaque);
+                    cmd.Parameters.AddWithValue("@embalaje", etiqueta.Embalaje);
                     cmd.Parameters.AddWithValue("@gtin", etiqueta.Gtin);
+                    cmd.Parameters.AddWithValue("@categoria", etiqueta.Categoria);
 
                     cmd.ExecuteNonQuery();
                     etiqueta.ID = cmd.LastInsertedId.ToString();
@@ -627,7 +642,7 @@ namespace Datos
 
         public bool ModificarEtiqueta(E_Etiqueta_PTI etiqueta)
         {
-            string query = "update tbl_pti_etiqueta set nombre_etiqueta = @nombre_etiqueta, importador = @importador, producto = @producto, empaque = @empaque, gtin = @gtin  where id = @id;";
+            string query = "update tbl_pti_etiqueta set nombre_etiqueta = @nombre_etiqueta, importador = @importador, producto = @producto, embalaje = @embalaje, gtin = @gtin, categoria=@categoria  where id = @id;";
             MySqlCommand cmd;
             try
             {
@@ -637,9 +652,10 @@ namespace Datos
                     cmd.Parameters.AddWithValue("@nombre_etiqueta", etiqueta.Nombre_etiqueta);
                     cmd.Parameters.AddWithValue("@importador", etiqueta.Importador);
                     cmd.Parameters.AddWithValue("@producto", etiqueta.Producto);
-                    cmd.Parameters.AddWithValue("@empaque", etiqueta.Empaque);
+                    cmd.Parameters.AddWithValue("@embalaje", etiqueta.Embalaje);
                     cmd.Parameters.AddWithValue("@gtin", etiqueta.Gtin);
                     cmd.Parameters.AddWithValue("@id", etiqueta.ID);
+                    cmd.Parameters.AddWithValue("@categoria", etiqueta.Categoria);
 
                     cmd.ExecuteNonQuery();
                     Desconectar();
