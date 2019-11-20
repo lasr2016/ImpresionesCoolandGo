@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Negocio;
+using Entidades;
+
 
 
 namespace PrintCoolAndGo
@@ -23,7 +25,15 @@ namespace PrintCoolAndGo
 
         private void button1_Click(object sender, EventArgs e)
         {
-          
+            N_CodigoZPL impresion = new N_CodigoZPL();
+            E_Etiqueta_Quesos etiquetaQueso;
+
+            string ID = cmbEtiqueta.SelectedValue.ToString();
+
+            etiquetaQueso =  etiqueta.ObtenerEtiqueta(ID);
+
+            impresion.ImpresionEtiquetaQuesos(etiquetaQueso.Descripcion, etiquetaQueso.CodigoBarras, dateTimePicker1.Text, etiquetaQueso.SAP, txtCantidad.Text);
+            
         }
 
         private void frmQuesos_Load(object sender, EventArgs e)

@@ -52,5 +52,33 @@ namespace Negocio
 
             RawPrinter.SendFileToPrinter("ImpresoraZPL", Nombre_archivo);
         }
+
+        public void ImpresionEtiquetaQuesos(string producto, string codigoBarras, string fechaVencimiento, string codigoSAP, string Cantidad)
+        {
+            Nombre_archivo = "C:\\Temp\\EtiquetaTemp.txt";
+            archivo.Nombre_archivo = Nombre_archivo;
+            impresora.Archivo = Nombre_archivo;
+            impresora.NuevaImpresion();
+
+            impresora.Grabar("^XA");
+            impresora.Grabar("^MMT");
+            impresora.Grabar("^PW799");
+            impresora.Grabar("^LL0400");
+            impresora.Grabar("^LS0");
+            impresora.Grabar(@"^FT54,67^A0N,31,31^FH\^FD" + producto + "^FS");
+            impresora.Grabar("^BY3,3,166^FT97,262^BCN,,Y,N");
+            impresora.Grabar("^FD>:" + codigoBarras + "^FS");
+            if (codigoSAP.Trim() != "")
+            {
+                impresora.Grabar(@"^FT69,338^A0N,31,31^FH\^FDSAP^FS");
+                impresora.Grabar(@"^FT66,375^A0N,31,31^FH\^FD" + codigoSAP + "^FS");
+            }
+            impresora.Grabar(@"^FT571,334^A0N,31,31^FH\^FDF. VENC^FS");            
+            impresora.Grabar(@"^FT571,374^A0N,31,31^FH\^FD" + fechaVencimiento + "^FS");
+            
+            impresora.Grabar("^PQ1,0,1,Y^XZ");    
+
+            RawPrinter.SendFileToPrinter("ImpresoraZPL", Nombre_archivo);
+        }
     }
 }
